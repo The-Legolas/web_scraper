@@ -11,11 +11,8 @@ func getHeadingFromHTML(html string) string {
 	if err != nil {
 		return ""
 	}
-	selc := document.Find("h1")
-	if selc.Size() == 0 {
-		selc = document.Find("h2")
-	}
-	return selc.First().Text()
+	h1 := document.Find("h1, h2").First().Text()
+	return strings.TrimSpace(h1)
 }
 
 func getFirstParagraphFromHTML(html string) string {
@@ -28,5 +25,5 @@ func getFirstParagraphFromHTML(html string) string {
 	if selc.Length() == 0 {
 		selc = document.Find("p")
 	}
-	return selc.Eq(0).Text()
+	return strings.TrimSpace(selc.Eq(0).Text())
 }

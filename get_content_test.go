@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestGetHeadingFromHTMLBasic(t *testing.T) {
 	tests := []struct {
@@ -35,7 +37,7 @@ func TestGetHeadingFromHTMLBasic(t *testing.T) {
 			actual := getHeadingFromHTML(tc.inputBody)
 
 			if actual != tc.expected {
-				t.Errorf("Test %v - %s FAIL: expected: %v, actual: %v", i, tc.name, tc.expected, actual)
+				t.Errorf("Test %v - %s FAIL: expected: %q, actual: %q", i, tc.name, tc.expected, actual)
 			}
 		})
 	}
@@ -98,7 +100,7 @@ func TestGetFirstParagraphFromHTMLMainPriority(t *testing.T) {
 			actual := getFirstParagraphFromHTML(tc.inputBody)
 
 			if actual != tc.expected {
-				t.Errorf("Test %v - %s FAIL: expected: %v, actual: %v", i, tc.name, tc.expected, actual)
+				t.Errorf("Test %v - %s FAIL: expected: %q, actual: %q", i, tc.name, tc.expected, actual)
 			}
 		})
 	}

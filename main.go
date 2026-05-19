@@ -1,20 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/url"
+)
 
 func main() {
-	p := `
-<html>
-  <body>
-    <h1>Welcome to Boot.dev</h1>
-    <main>
-      <p>Learn to code by building real projects.</p>
-      <p>This is the second paragraph.</p>
-    </main>
-  </body>
-</html>
-`
-	_, _ = normalizeURL(p)
-	val := getHeadingFromHTML(p)
-	fmt.Println(val)
+	inputURL := "https://www.boot.dev"
+	//inputBody := `<html><body><a href="https://crawler-test.com"><span>Boot.dev</span></a></body></html>`
+	inputBody := `<html><body><a href="about"><span>Boot.dev</span></a></body></html>`
+
+	//inputBody := `<a href="/about">About</a>`
+	//inputURL := "https://crawler-test.com"
+	basL, _ := url.Parse(inputURL)
+
+	actual, err := getURLsFromHTML(inputBody, basL)
+
+	fmt.Println(actual, err)
 }
