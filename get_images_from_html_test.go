@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestGetImagesFromHTMLRelative(t *testing.T) {
+func TestGetImagesFrominputBodyRelative(t *testing.T) {
 	tests := []struct {
 		name          string
 		inputURL      string
@@ -18,43 +18,43 @@ func TestGetImagesFromHTMLRelative(t *testing.T) {
 		{
 			name:      "test function",
 			inputURL:  "https://crawler-test.com",
-			inputBody: `<html><body><img src="https://crawler-test.com/logo.png" alt="Logo"></body></html>`,
+			inputBody: `<inputBody><body><img src="https://crawler-test.com/logo.png" alt="Logo"></body></inputBody>`,
 			expected:  []string{"https://crawler-test.com/logo.png"},
 		},
 		{
 			name:      "test no link",
 			inputURL:  "https://crawler-test.com",
-			inputBody: `<html><body><a href=""><span>Boot.dev</span></a></body></html>`,
-			expected:  []string{},
+			inputBody: `<inputBody><body><a href=""><span>Boot.dev</span></a></body></inputBody>`,
+			expected:  nil,
 		},
 		{
 			name:      "test sub link",
 			inputURL:  "https://crawler-test.com",
-			inputBody: `<html><body><img src="/logo.png" alt="Logo"></body></html>`,
+			inputBody: `<inputBody><body><img src="/logo.png" alt="Logo"></body></inputBody>`,
 			expected:  []string{"https://crawler-test.com/logo.png"},
 		},
 		{
 			name:      "test bad sub link",
 			inputURL:  "https://crawler-test.com",
-			inputBody: `<html><body><img src="bad.png" alt="Logo"></body></html>`,
+			inputBody: `<inputBody><body><img src="bad.png" alt="Logo"></body></inputBody>`,
 			expected:  []string{"https://crawler-test.com/bad.png"},
 		},
 		{
 			name:      "test two links",
 			inputURL:  "https://crawler-test.com",
-			inputBody: `<html><body><img src="/logo1.png" alt="Logo"><img src="/logo2.png" alt="Logo"></body></html>`,
+			inputBody: `<inputBody><body><img src="/logo1.png" alt="Logo"><img src="/logo2.png" alt="Logo"></body></inputBody>`,
 			expected:  []string{"https://crawler-test.com/logo1.png", "https://crawler-test.com/logo2.png"},
 		},
 		{
 			name:      "test two different types of links",
 			inputURL:  "https://crawler-test.com",
-			inputBody: `<html><body><img src="https://crawler-test.com/blog/logo.png" alt="Logo"><img src="/logo.png" alt="Logo"></body></html>`,
+			inputBody: `<inputBody><body><img src="https://crawler-test.com/blog/logo.png" alt="Logo"><img src="/logo.png" alt="Logo"></body></inputBody>`,
 			expected:  []string{"https://crawler-test.com/blog/logo.png", "https://crawler-test.com/logo.png"},
 		},
 		{
 			name:      "test mix",
 			inputURL:  "https://crawler-test.com/blog",
-			inputBody: `<html><body><img src="" alt="Logo"><img src="/ok" alt="Logo"><img src="https://external.com/logo.png" alt="Logo"><img src="/logo.png" alt="Logo"></body></html>`,
+			inputBody: `<inputBody><body><img src="" alt="Logo"><img src="/ok" alt="Logo"><img src="https://external.com/logo.png" alt="Logo"><img src="/logo.png" alt="Logo"></body></inputBody>`,
 			expected:  []string{"https://crawler-test.com/ok", "https://external.com/logo.png", "https://crawler-test.com/logo.png"},
 		},
 	}
@@ -67,7 +67,7 @@ func TestGetImagesFromHTMLRelative(t *testing.T) {
 				return
 			}
 
-			actual, err := getImagesFromHTML(tc.inputBody, baseURL)
+			actual, err := getImagesFrominputBody(tc.inputBody, baseURL)
 
 			if err != nil && !strings.Contains(err.Error(), tc.errorContains) {
 				t.Errorf("Test %v - '%s' FAIL: unexpected error: %v", i, tc.name, err)

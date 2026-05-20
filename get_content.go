@@ -6,8 +6,8 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func getHeadingFromHTML(html string) string {
-	document, err := goquery.NewDocumentFromReader(strings.NewReader(html))
+func getHeadingFrominputBody(inputBody string) string {
+	document, err := goquery.NewDocumentFromReader(strings.NewReader(inputBody))
 	if err != nil {
 		return ""
 	}
@@ -15,8 +15,8 @@ func getHeadingFromHTML(html string) string {
 	return strings.TrimSpace(h1)
 }
 
-func getFirstParagraphFromHTML(html string) string {
-	document, err := goquery.NewDocumentFromReader(strings.NewReader(html))
+func getFirstParagraphFrominputBody(inputBody string) string {
+	document, err := goquery.NewDocumentFromReader(strings.NewReader(inputBody))
 	if err != nil {
 		return ""
 	}

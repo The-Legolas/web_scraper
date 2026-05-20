@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestGetHeadingFromHTMLBasic(t *testing.T) {
+func TestGetHeadingFrominputBodyBasic(t *testing.T) {
 	tests := []struct {
 		name      string
 		inputBody string
@@ -12,29 +12,29 @@ func TestGetHeadingFromHTMLBasic(t *testing.T) {
 	}{
 		{
 			name:      "get h1",
-			inputBody: "<html><body><h1>Test Title</h1></body></html>",
+			inputBody: "<inputBody><body><h1>Test Title</h1></body></inputBody>",
 			expected:  "Test Title",
 		},
 		{
 			name:      "get h1 version. 2",
-			inputBody: "<html><body><h1>Test h1 Title</h1><h2>Test h2 Title</h2></body></html>",
+			inputBody: "<inputBody><body><h1>Test h1 Title</h1><h2>Test h2 Title</h2></body></inputBody>",
 			expected:  "Test h1 Title",
 		},
 		{
 			name:      "fallback to h2",
-			inputBody: "<html><body><h2>Test h2 Title</h2></body></html>",
+			inputBody: "<inputBody><body><h2>Test h2 Title</h2></body></inputBody>",
 			expected:  "Test h2 Title",
 		},
 		{
 			name:      "no body",
-			inputBody: "<html><body></body></html>",
+			inputBody: "<inputBody><body></body></inputBody>",
 			expected:  "",
 		},
 	}
 
 	for i, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			actual := getHeadingFromHTML(tc.inputBody)
+			actual := getHeadingFrominputBody(tc.inputBody)
 
 			if actual != tc.expected {
 				t.Errorf("Test %v - %s FAIL: expected: %q, actual: %q", i, tc.name, tc.expected, actual)
@@ -43,7 +43,7 @@ func TestGetHeadingFromHTMLBasic(t *testing.T) {
 	}
 }
 
-func TestGetFirstParagraphFromHTMLMainPriority(t *testing.T) {
+func TestGetFirstParagraphFrominputBodyMainPriority(t *testing.T) {
 	tests := []struct {
 		name      string
 		inputBody string
@@ -51,53 +51,53 @@ func TestGetFirstParagraphFromHTMLMainPriority(t *testing.T) {
 	}{
 		{
 			name: "get main paragraph",
-			inputBody: `<html><body>
+			inputBody: `<inputBody><body>
 		<p>Outside paragraph.</p>
 		<main>
 			<p>Main paragraph.</p>
 		</main>
-	</body></html>`,
+	</body></inputBody>`,
 			expected: "Main paragraph.",
 		},
 		{
 			name: "ignore second paragraph",
-			inputBody: `<html><body>
+			inputBody: `<inputBody><body>
 		<main>
 			<p>Main paragraph.</p>
 			<p>ignore this paragraph.</p>
 		</main>
-	</body></html>`,
+	</body></inputBody>`,
 			expected: "Main paragraph.",
 		},
 		{
 			name: "no paragraph",
-			inputBody: `<html><body>
+			inputBody: `<inputBody><body>
 		<main>
 		</main>
-	</body></html>`,
+	</body></inputBody>`,
 			expected: "",
 		},
 		{
 			name: "no main body",
-			inputBody: `<html><body>
+			inputBody: `<inputBody><body>
 		<p>Just me and me alone.</p>
-	</body></html>`,
+	</body></inputBody>`,
 			expected: "Just me and me alone.",
 		},
 		{
 			name: "no main body",
-			inputBody: `<html><body>
+			inputBody: `<inputBody><body>
 		<main>
 			<p>First</p>
 			<p>Second</p>
 		</main>
-	</body></html>`,
+	</body></inputBody>`,
 			expected: "First",
 		},
 	}
 	for i, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			actual := getFirstParagraphFromHTML(tc.inputBody)
+			actual := getFirstParagraphFrominputBody(tc.inputBody)
 
 			if actual != tc.expected {
 				t.Errorf("Test %v - %s FAIL: expected: %q, actual: %q", i, tc.name, tc.expected, actual)

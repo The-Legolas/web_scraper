@@ -8,23 +8,23 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func getURLsFromHTML(htmlBody string, baseURL *url.URL) ([]string, error) {
-	urlArray := []string{}
+func getURLsFrominputBody(inputBodyBody string, baseURL *url.URL) ([]string, error) {
+	var urlArray []string
 
-	document, err := goquery.NewDocumentFromReader(strings.NewReader(htmlBody))
+	document, err := goquery.NewDocumentFromReader(strings.NewReader(inputBodyBody))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("couldn't parse inputBody: %w", err)
 	}
 
 	selc := document.Find("a[href]")
 	selc.Each(func(i int, s *goquery.Selection) {
-		val, _ := s.Attr("href")
-		if val == "" {
+		val, ok := s.Attr("href")
+		if !ok || strings.TrimSpace(val) == "" {
 			return
 		}
 		ref, err := url.Parse(val)
 		if err != nil {
-			fmt.Println("error;", err)
+			fmt.Printf("couldn't parse hrf %q: %v\n", val, err)
 			return
 		}
 		r := baseURL.ResolveReference(ref)
