@@ -82,12 +82,12 @@ func TestGetURLsFrominputBodyAbsolute(t *testing.T) {
 				t.Errorf("Test %v - '%s' FAIL: unexpected error: %v", i, tc.name, err)
 				return
 			} else if err == nil && tc.errorContains != "" {
-				t.Errorf("Test %v - '%s' FAIL: expected error containing '%v', got none.", i, tc.name, tc.errorContains)
+				t.Errorf("Test %v - '%s' FAIL: expected error containing '%v', actual none.", i, tc.name, tc.errorContains)
 				return
 			}
 
 			if !reflect.DeepEqual(actual, tc.expected) {
-				t.Errorf("Test %v - %s FAIL: expected %q, got %q", i, tc.name, tc.expected, actual)
+				t.Errorf("Test %v - %s FAIL: expected %q, actual %q", i, tc.name, tc.expected, actual)
 			}
 		})
 	}

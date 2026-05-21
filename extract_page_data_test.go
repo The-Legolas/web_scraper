@@ -136,13 +136,25 @@ func TestExtractPageData(t *testing.T) {
 		},
 	}
 
-	for i, tc := range tests {
+	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 
 			actual := extractPageData(tc.inputBody, tc.inputURL)
 
-			if !reflect.DeepEqual(actual, tc.expected) {
-				t.Errorf("Test %v - %s FAIL: expected : %+v, got: %+v", i, tc.name, tc.expected, actual)
+			if actual.URL != tc.expected.URL {
+				t.Errorf("URL: expected %q, actual %q", tc.expected.URL, actual.URL)
+			}
+			if actual.Heading != tc.expected.Heading {
+				t.Errorf("Heading: expected %q, actual %q", tc.expected.Heading, actual.Heading)
+			}
+			if actual.FirstParagraph != tc.expected.FirstParagraph {
+				t.Errorf("FirstParagraph: expected %q, actual %q", tc.expected.FirstParagraph, actual.FirstParagraph)
+			}
+			if !reflect.DeepEqual(actual.OutgoingLinks, tc.expected.OutgoingLinks) {
+				t.Errorf("OutgoingLinks: expected %v, actual %v", tc.expected.OutgoingLinks, actual.OutgoingLinks)
+			}
+			if !reflect.DeepEqual(actual.ImageURLs, tc.expected.ImageURLs) {
+				t.Errorf("ImageURLs: expected %v, actual %v", tc.expected.ImageURLs, actual.ImageURLs)
 			}
 		})
 	}
