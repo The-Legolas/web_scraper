@@ -9,7 +9,9 @@ import (
 func main() {
 
 	if len(os.Args) < 2 {
-		fmt.Println("no website provided")
+		fmt.Println("not enough arguments provided")
+		fmt.Println("usage: crawler <baseURL> [maxConcurrency] [maxPages]")
+		fmt.Println("defaults: maxConcurrency=3 maxPages=10")
 		os.Exit(1)
 	} else if len(os.Args) > 4 {
 		fmt.Println("too many arguments provided")
@@ -23,7 +25,7 @@ func main() {
 	if len(os.Args) >= 3 {
 		maxConcurrency, err = strconv.Atoi(os.Args[2])
 		if err != nil {
-			fmt.Println("Error converting max concurrency to number")
+			fmt.Printf("Error - maxConcurrency: %v", err)
 			return
 		}
 	}
@@ -32,7 +34,7 @@ func main() {
 	if len(os.Args) == 4 {
 		maxPages, err = strconv.Atoi(os.Args[3])
 		if err != nil {
-			fmt.Println("Error converting max concurrency to number")
+			fmt.Printf("Error - maxPages: %v", err)
 			return
 		}
 	}
@@ -55,7 +57,6 @@ func main() {
 
 	err = writeJSONReport(cfg.pages, "report.json")
 	if err != nil {
-		fmt.Printf("Error  - writing to json file report.json: %v", err)
-		return
+		fmt.Printf("Error - writeJSONReport: %v\n", err)
 	}
 }

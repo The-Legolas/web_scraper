@@ -12,8 +12,7 @@ func (cfg *config) crawlPage(rawCurrentURL string) {
 		cfg.wg.Done()
 	}()
 
-	notMaxPagescount := cfg.checkPageCount()
-	if !notMaxPagescount {
+	if cfg.pagesLen() >= cfg.maxPages {
 		return
 	}
 

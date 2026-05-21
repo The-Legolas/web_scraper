@@ -15,10 +15,10 @@ type config struct {
 	maxPages           int
 }
 
-func (cfg *config) checkPageCount() bool {
+func (cfg *config) pagesLen() int {
 	cfg.mu.Lock()
 	defer cfg.mu.Unlock()
-	return len(cfg.pages) < cfg.maxPages
+	return len(cfg.pages)
 }
 
 func (cfg *config) setPageData(normalizedURL string, data PageData) {
