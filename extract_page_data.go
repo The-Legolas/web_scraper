@@ -16,7 +16,6 @@ type PageData struct {
 func extractPageData(inputBody, inputURL string) PageData {
 	heading := getHeadingFrominputBody(inputBody)
 	firstParagraph := getFirstParagraphFrominputBody(inputBody)
-	fmt.Print("ddd")
 
 	parsedURL, err := url.Parse(inputURL)
 	if err != nil {
